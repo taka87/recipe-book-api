@@ -22,6 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
+        Console.WriteLine("git test");
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
