@@ -5,8 +5,8 @@ WORKDIR /src
 COPY . .
 
 
-RUN dotnet restore "./RecipeBookApi/RecipeBookApi.csproj"
-RUN dotnet publish "./RecipeBookApi/RecipeBookApi.csproj" -c Release -o /app
+RUN dotnet restore "./RecipeBookApi.csproj"
+RUN dotnet publish "./RecipeBookApi.csproj" -c Release -o /app
 
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
