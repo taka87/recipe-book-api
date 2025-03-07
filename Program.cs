@@ -55,4 +55,4 @@ app.UseAuthorization();
 // 🔹 Активирай контролерите
 app.MapControllers();
 
-app.Run();
+app.Run("http://*:80");
