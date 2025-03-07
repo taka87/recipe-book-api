@@ -57,4 +57,4 @@ obj/
 *.suo
 *.cache
 *.csproj.user
-*.vs/
+*.vs/ 
