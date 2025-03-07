@@ -1,0 +1,17 @@
+# .NET build artifacts
+bin/
+obj/
+
+# Node.js modules
+node_modules/
+appsettings.Development.json
+
+# Environment files
+.env
+.env.local
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.cache
