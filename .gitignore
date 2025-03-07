@@ -1,60 +1,21 @@
 # .NET build artifacts
 bin/
 obj/
+TestResults/
+*.dll
+*.exe
+*.cache
+*.pdb
+*.log
 
-# Node.js modules
-node_modules/
-appsettings.Development.json
+# Ignore user-specific files
+*.user
+*.suo
+*.vs/
+*.vscode/
+*.idea/
 
 # Environment files
 .env
-.env.local
-
-# Visual Studio files
-.vs/
-*.user
-*.suo
-*.cache
-
-# .NET build artifacts
-[Bb]in/
-[Oo]bj/
-[Tt]est[Rr]esults/
-[Pp]ublish/
-*.vs/
-*.user
-*.suo
-*.cache
-*.nupkg
-*.swp
-*.log
-*.pyc
-*.pyo
-*.pyd
-*.db
-*.sqlite
-*.sqlite3
-*.DS_Store
-*.pid
-*.seed
-*.pid.lock
-*.sln.iml
-*.csproj.user
-*.csproj.*.user
-*.csproj.*.cache
-*.csproj.nuget.*
-*.csproj.nuget.cache
-*.csproj.nuget.dgspec.json
-*.csproj.nuget.g.props
-*.csproj.nuget.g.targets
-
-# .NET build artifacts
-bin/
-obj/
-*.dll
-*.exe
-*.pdb
-*.cache
-*.json
-*.log
-*.config
+appsettings.Development.json
+appsettings.Local.json
