@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v6P2pfaRnng=",
+  "dgSpecHash": "OEOFOklPrzE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\RecipeBookApi.csproj",
+  "projectFilePath": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\recipe-book-api\\RecipeBookApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dani\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Dani\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",

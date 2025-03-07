@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\RecipeBookApi.csproj": {}
+    "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\recipe-book-api\\RecipeBookApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\RecipeBookApi.csproj": {
+    "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\recipe-book-api\\RecipeBookApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\RecipeBookApi.csproj",
+        "projectUniqueName": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\recipe-book-api\\RecipeBookApi.csproj",
         "projectName": "RecipeBookApi",
-        "projectPath": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\RecipeBookApi.csproj",
+        "projectPath": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\recipe-book-api\\RecipeBookApi.csproj",
         "packagesPath": "C:\\Users\\Dani\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\obj\\",
+        "outputPath": "C:\\Users\\Dani\\source\\repos\\RecipeBookApi\\recipe-book-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
