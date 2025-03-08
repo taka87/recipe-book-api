@@ -8,17 +8,7 @@ using MySql.Data.MySqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Проверка на конфигурацията
-var configuration = builder.Configuration;
-Console.WriteLine("✅ Всички конфигурационни ключове:");
-foreach (var config in configuration.AsEnumerable())
-{
-    Console.WriteLine($"{config.Key} = {config.Value}");
-}
 
-// 🔹 Проверка на PostgreSQL connection string
-var pgConnection = configuration.GetConnectionString("PostgreSQL");
-Console.WriteLine($"\n🔌 PostgreSQL Connection String: {pgConnection}");
 
 // 🔵 Port Configuration (работи и за Render, и локално)
 var renderPort = Environment.GetEnvironmentVariable("RENDER_PORT") ?? "5000";
