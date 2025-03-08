@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient; // Върни using за MySQL
 var builder = WebApplication.CreateBuilder(args);
 
 // 🔹 Фиксирай URL на API-то (локално)
-builder.WebHost.UseUrls("http://localhost:5000");
+builder.WebHost.UseUrls("http://localhost:10000");
 
 // 🔹 Провери дали използваме PostgreSQL (за Render)
 var usePostgreSQL = builder.Configuration.GetValue<bool>("UsePostgreSQL");
