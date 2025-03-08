@@ -16,9 +16,6 @@ namespace RecipeBookApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get() => Ok("API is working");
-
         private readonly AppDbContext _dbContext;
 
         public UserController(AppDbContext dbContext)
@@ -31,30 +28,6 @@ namespace RecipeBookApi.Controllers
         {
             return Ok("API is working");
         }
-
-        ////ТЕСТ->>  http://localhost:5000/api/user/check-db
-        //[HttpGet("check-db")]
-        //public IActionResult CheckDatabaseConnection()
-        //{
-        //    try
-        //    {
-        //        var usersCount = _dbContext.Users.Count();
-        //        return Ok($"✅ Връзката е активна! Брой потребители: {usersCount}");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"❌ Проблем с базата: {ex.Message}");
-        //    }
-        //}
-
-
-        ////ТЕСТ->>  http://localhost:5000/api/user/test
-        //[HttpGet("test")]
-        //public IActionResult TestApi()
-        //{
-        //    return Ok("API is running");   //това съобщение се показва на 
-        //}
-
 
         // GET: api/user
         [Authorize] // ⬅️ Това ще изисква токен
@@ -102,75 +75,6 @@ namespace RecipeBookApi.Controllers
         }
 
 
-
-
-        //// POST: api/user
-        //1 ->>
-        //[HttpPost("register")]
-        //public async Task<IActionResult> CreateUser(User user)
-        //{
-        //    await _dbContext.Users.AddAsync(user);
-        //    await _dbContext.SaveChangesAsync();
-        //    return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
-        //}
-
-        //2->
-        //[HttpPost("register")]
-        //public async Task<IActionResult> CreateUser([FromBody] User user)
-        //{
-        //    user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        //    user.CreatedAt = DateTime.UtcNow;
-        //    await _dbContext.Users.AddAsync(user);
-        //    await _dbContext.SaveChangesAsync();
-        //    return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
-        //}
-
-        //3->
-
-        //[Authorize]   //to test-> не може да иска оторизация при регистрация(низ с токен, трябва д аго иска при логин)
-        //[HttpGet("protected-route")]
-        //public IActionResult GetSecretData()
-        //{
-        //    return Ok("Това е защитена информация!");
-        //}
-
-        ////->> 4
-        //[Authorize] // ⬅️ Изисква JWT токен
-        //[HttpGet("protected-route")]
-        //public IActionResult GetSecretData()
-        //{
-        //    return Ok("Това е защитена информация!");
-        //}
-        //[HttpPost("register")]
-        //public async Task<IActionResult> Register([FromBody] User user)
-        //{
-        //    user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        //    user.CreatedAt = DateTime.UtcNow;
-
-        //    await _dbContext.Users.AddAsync(user);
-        //    await _dbContext.SaveChangesAsync();
-
-        //    // Генерираме JWT токен за новия потребител
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.UTF8.GetBytes("ТВОЯТ_СУПЕР_СИГУРЕН_КЛЮЧ_12345");
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(new[]
-        //        {
-        //    new Claim(ClaimTypes.Name, user.FirstName),
-        //    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-        //}),
-        //        Expires = DateTime.UtcNow.AddHours(2),
-        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        //    };
-
-        //    var token = tokenHandler.CreateToken(tokenDescriptor);
-        //    var tokenString = tokenHandler.WriteToken(token);
-
-        //    // Връщаме потребителя + токена
-        //    return Ok(new { user.Id, user.FirstName, Token = tokenString });
-        //}
-
         // ->>5
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User user)
@@ -210,36 +114,6 @@ namespace RecipeBookApi.Controllers
         }
 
 
-        //[HttpPost("register")]
-        //public async Task<IActionResult> CreateUser([FromBody] User user)
-        //{
-        //    // Лог на получените данни
-        //    Console.WriteLine($"Received user: {JsonSerializer.Serialize(user)}");
-
-        //    // Премахни дублиращия се ModelState.IsValid
-        //    if (!ModelState.IsValid)
-        //    {
-        //        Console.WriteLine($"ModelState errors: {JsonSerializer.Serialize(ModelState)}");
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    try
-        //    {
-        //        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        //        user.CreatedAt = DateTime.UtcNow;
-
-        //        await _dbContext.Users.AddAsync(user);
-        //        await _dbContext.SaveChangesAsync();
-
-        //        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Database error: {ex.Message}");
-        //        return StatusCode(500, "Грешка при запис в базата");
-        //    }
-        //}
-
         //[Authorize]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto model)
@@ -277,14 +151,6 @@ namespace RecipeBookApi.Controllers
             //    role = user.Role // 🔥 Добавяме Role
             //});
         }
-
-        // Клас за login заявката
-        //public class LoginRequest
-        //{
-        //    public string? Email { get; set; }
-        //    public string? Password { get; set; }
-        //}
-
 
         [Authorize]
         // PUT: api/user/{id}

@@ -9,7 +9,9 @@ using MySql.Data.MySqlClient; // Върни using за MySQL
 var builder = WebApplication.CreateBuilder(args);
 
 // 🔹 Фиксирай URL на API-то (локално)
-builder.WebHost.UseUrls("http://localhost:5000");
+//builder.WebHost.UseUrls("http://localhost:5000");
+var renderPort = Environment.GetEnvironmentVariable("RENDER_PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{renderPort}");
 
 // 🔹 Провери дали използваме PostgreSQL (за Render)
 var usePostgreSQL = builder.Configuration.GetValue<bool>("UsePostgreSQL");
@@ -24,6 +26,18 @@ builder.Services.AddCors(options =>
               .AllowCredentials(); // Ако използвате бисквитки/авторизация
     });
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ТВОЯТ_СУПЕР_СИГУРЕН_КЛЮЧ_12345")), // Замени с реален ключ
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 // 🔹 Конфигурирай базата данни
 builder.Services.AddDbContext<AppDbContext>(options =>
