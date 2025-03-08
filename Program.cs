@@ -4,58 +4,57 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RecipeBookApi.Models;
 using Npgsql;
-using MySql.Data.MySqlClient; // Върни using за MySQL
+using MySql.Data.MySqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Фиксирай URL на API-то (локално)
-//builder.WebHost.UseUrls("http://localhost:5000");
+// 🔵 Port Configuration (работи и за Render, и локално)
 var renderPort = Environment.GetEnvironmentVariable("RENDER_PORT") ?? "5000";
-builder.WebHost.UseUrls($"http://0.0.0.0:{renderPort}");
+builder.WebHost.UseUrls($"http://0.0.0.0:{renderPort}"); // ⚠️ Важно за Render
 
-// 🔹 Провери дали използваме PostgreSQL (за Render)
-var usePostgreSQL = builder.Configuration.GetValue<bool>("UsePostgreSQL");
-
+// 🔵 CORS Configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowAll", policy => // 🚫 Не променяй името на политиката!
     {
-        policy.WithOrigins("http://localhost:4200") // URL на Angular приложението
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials(); // Ако използвате бисквитки/авторизация
+        policy.WithOrigins(
+            "http://localhost:4200",       // Локален Angular
+            "https://вашият-frontend.vercel.app" // Добави тук Vercel домейна
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
     });
 });
 
+// 🔵 JWT Authentication (остава непроменена)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ТВОЯТ_СУПЕР_СИГУРЕН_КЛЮЧ_12345")), // Замени с реален ключ
-            ValidateIssuer = false,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key", "❌ Липсва JWT ключ в конфигурацията!"))
+            ),
+            ValidateIssuer = false, // 🔴 Ако не използваш Issuer/Audience, остави false
             ValidateAudience = false
         };
     });
 
-// 🔹 Конфигурирай базата данни
+
+// 🔵 Database Configuration (без промени)
+var usePostgreSQL = builder.Configuration.GetValue<bool>("UsePostgreSQL");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     if (usePostgreSQL)
     {
-        // PostgreSQL конфигурация за Render
-        var pgConnection = builder.Configuration.GetConnectionString("PostgreSQL")
-            ?? throw new InvalidOperationException("PostgreSQL connection string not found.");
-        options.UseNpgsql(pgConnection);
+        options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
     }
     else
     {
-        // MySQL конфигурация за локална разработка
-        var mySqlConnection = builder.Configuration.GetConnectionString("MySQL")
-            ?? throw new InvalidOperationException("MySQL connection string not found.");
         options.UseMySql(
-            mySqlConnection,
+            builder.Configuration.GetConnectionString("MySQL"),
             new MySqlServerVersion(new Version(8, 0, 32))
         );
     }
