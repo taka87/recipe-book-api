@@ -51,6 +51,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     try
     {
+        //new block
         if (usePostgreSQL)
         {
             options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
