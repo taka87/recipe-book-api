@@ -47,16 +47,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var usePostgreSQL = builder.Configuration.GetValue<bool>("UsePostgreSQL");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    if (usePostgreSQL)
+    try
     {
-        options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
+        if (usePostgreSQL)
+        {
+            options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
+        }
+        else
+        {
+            options.UseMySql(
+                builder.Configuration.GetConnectionString("MySQL"),
+                new MySqlServerVersion(new Version(8, 0, 32))
+            );
+        }
     }
-    else
+    catch (Exception ex)
     {
-        options.UseMySql(
-            builder.Configuration.GetConnectionString("MySQL"),
-            new MySqlServerVersion(new Version(8, 0, 32))
-        );
+        Console.WriteLine($"❌ Грешка при връзка с базата: {ex.Message}");
+        throw;
     }
 });
 
